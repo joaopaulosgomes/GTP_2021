@@ -13,7 +13,7 @@ export default () => {
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
           <p className="text-center">
-            <Card.Link as={Link} to={Routes.Presentation.path} className="text-gray-700">
+            <Card.Link as={Link} to={Routes.IndexWebPage.path} className="text-gray-700">
               <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Cancel create user
             </Card.Link>
           </p>
@@ -22,7 +22,6 @@ export default () => {
 
               <div className="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h5 className="mb-0">Your user was created successfully!</h5>
                   <h3 className="mb-0">Your personal details</h3>
                 </div>
 
@@ -57,7 +56,7 @@ export default () => {
                   </Form.Group>
 
 
-                  <Button variant="primary" type="submit" as={Link} to={Routes.Presentation.path} className="w-100">
+                  <Button variant="primary" type="submit" as={Link} to={Routes.Signup3.path} className="w-100">
                     Next
                   </Button>
 

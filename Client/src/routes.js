@@ -2,7 +2,7 @@
 export const Routes = {
     
     //Car Park GTP
-    Presentation: { path: "/" },
+    IndexWebPage: { path: "/" },
     DashboardOverview: { path: "/dashboard/overview" },
     Signin: { path: "/sign-in" },
     Signup1: { path: "/sign-up/1" },
@@ -14,13 +14,7 @@ export const Routes = {
     // pages
     Transactions: { path: "/transactions" },
     Settings: { path: "/settings" },
-    Joao: { path: "/joao" },
-    Signin: { path: "/exemple/sign-in" },
-    Signup: { path: "/exemple/sign-up" },
-    BootstrapTables: { path: "/tables/bootstrap-tables" },
-    ForgotPassword: { path: "/examples/forgot-password" },
-    ResetPassword: { path: "/examples/reset-password" },
-    Lock: { path: "/examples/lock" },
+    BootstrapTables: { path: "/tables/bootstrap-tables" }
     
 
     
