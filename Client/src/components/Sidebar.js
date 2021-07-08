@@ -73,7 +73,7 @@ export default (props = {}) => {
           <div className="sidebar-inner px-4 pt-3">
             
             <Nav className="flex-column pt-3 pt-md-0">
-              <NavItem title="ADMIN DASHBOARD" icon={faCarAlt}/>
+              <NavItem title="ADMIN DASHBOARD" icon={faCarAlt} link={Routes.IndexWebPage.path} />
 
               <Dropdown.Divider className="my-3 border-indigo" />
 
@@ -81,7 +81,7 @@ export default (props = {}) => {
 
 
               <CollapsableNavItem eventKey="carpark/" title="Car park" icon={faCarSide}>
-                <NavItem title="Bookings" link={Routes.BootstrapTables.path} />
+                <NavItem title="Reservations" link={Routes.Transactions.path} />
                 <NavItem title="Staffs" link={Routes.BootstrapTables.path} />
               </CollapsableNavItem>
 
@@ -97,7 +97,9 @@ export default (props = {}) => {
 
 
               <CollapsableNavItem eventKey="users/" title="Users" icon={faUserAlt}>
-                <NavItem title="Users" link={Routes.BootstrapTables.path} />
+                <NavItem title="Make Reservation" link={Routes.MakeReservation.path} />
+                <NavItem title="My Reservations" link={Routes.MyReservations.path} />
+                <NavItem title="My Profile" link={Routes.MyProfile.path} />
               </CollapsableNavItem>
 
             </Nav>

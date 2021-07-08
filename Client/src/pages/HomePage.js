@@ -16,6 +16,10 @@ import NotFoundPage from "./other/NotFound";
 import ServerError from "./other/ServerError";
 
 
+import MakeReservation from "./users/MakeReservation";
+import MyReservations from "./users/MyReservations";
+import MyProfile from "./users/MyProfile";
+
 
 // components
 import Sidebar from "../components/Sidebar";
@@ -85,6 +89,9 @@ export default () => (
 
     {/* pages */}
     <RouteWithSidebar exact path={Routes.DashboardOverview.path} component={DashboardOverview} />
+    <RouteWithSidebar exact path={Routes.MakeReservation.path} component={MakeReservation} />
+    <RouteWithSidebar exact path={Routes.MyReservations.path} component={MyReservations} />
+    <RouteWithSidebar exact path={Routes.MyProfile.path} component={MyProfile} />
     <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions} />
     <RouteWithSidebar exact path={Routes.Settings.path} component={Settings} />
     <RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables} />

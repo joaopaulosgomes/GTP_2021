@@ -22,9 +22,15 @@ export default () => {
           <Row className="justify-content-center form-bg-image">
             <Col xs={12} className="d-flex align-items-center justify-content-center">
               <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-                <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Sign in to Car Park</h3>
-                </div>
+              <Button variant="gray" type="submit" className="w-100">
+                    Make a quick reservation
+              </Button>
+              <div className="text-center text-md-center mt-2">
+                <h5 className="mb-0">or</h5>
+              </div>
+              <div className="text-center text-md-center mb-4 mt-md-0">
+                <h3 className="mb-0">Sign in to Car Park</h3>
+              </div>
                 <Form className="mt-4">
                   <Form.Group id="email" className="mb-4">
                     <Form.Label>Username</Form.Label>
@@ -55,6 +61,7 @@ export default () => {
                   <Button variant="primary" type="submit" className="w-100">
                     Sign in
                   </Button>
+                  
                 </Form>
 
                 

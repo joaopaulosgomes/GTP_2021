@@ -12,6 +12,9 @@ export const Routes = {
     ServerError: { path: "/error/500" },
 
     // pages
+    MakeReservation: { path: "/users/make-reservation" },
+    MyReservations: { path: "/users/my-reservation" },
+    MyProfile: { path: "/users/my-profile" },
     Transactions: { path: "/transactions" },
     Settings: { path: "/settings" },
     BootstrapTables: { path: "/tables/bootstrap-tables" }
