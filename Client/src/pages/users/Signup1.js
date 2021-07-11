@@ -1,13 +1,66 @@
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
+import { faAngleLeft, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Routes } from "../../routes";
+
+import Axios from 'axios';
 
 
 export default () => {
+
+  const [username, setUsername] = useState('')
+  const [password, setPassword] = useState('')
+  const [confPassword, setConfPassword] = useState('')
+  const [response, setResponse] = useState([])
+
+  useEffect(() => {
+    Axios.get('http://localhost:3001/users/get').then((response)=>{
+      setResponse(response.data)
+    })
+    
+  },[]);
+
+  const history = useHistory();
+
+  const handleClick = () => {
+      history.push("/path/to/push");
+  }
+
+  const doPasswordsMatch = () => {
+    if (password === confPassword){
+      checkUser();
+    } else{
+      alert("Your Password doesn match. Try a dif one")
+    }
+  }
+
+  const checkUser = () => {
+    Axios.get('http://localhost:3001/users/check-user', {
+      username: username
+    })
+    // .then(response => console.log(response.data))
+    // .then(function(response) {
+    //   if(response.data.username === username) {
+    //     alert("This user is being used for another user")
+    //    }else(
+    //      addUsername()
+    //     );
+    //  })
+  }
+
+  const addUsername = () => {
+    Axios.post('http://localhost:3001/users/insert', {
+      username: username, 
+      password: password
+    })
+    
+    setResponse([...response, {username: username, password:password}])
+    
+  };
+
   return (
     <main>
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
@@ -30,7 +83,7 @@ export default () => {
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUser} />
                       </InputGroup.Text>
-                      <Form.Control autoFocus required type="text" placeholder="Username" />
+                      <Form.Control autoFocus required type="text" placeholder="Username" onChange={(e)=> {setUsername(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
                   <Form.Group id="password" className="mb-4">
@@ -39,7 +92,7 @@ export default () => {
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUnlockAlt} />
                       </InputGroup.Text>
-                      <Form.Control required type="password" placeholder="Password" />
+                      <Form.Control required type="password" placeholder="Password" onChange={(e)=> {setPassword(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
                   <Form.Group id="confirmPassword" className="mb-4">
@@ -48,7 +101,7 @@ export default () => {
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUnlockAlt} />
                       </InputGroup.Text>
-                      <Form.Control required type="password" placeholder="Confirm Password" />
+                      <Form.Control required type="password" placeholder="Confirm Password" onChange={(e)=> {setConfPassword(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
                   <FormCheck type="checkbox" className="d-flex mb-4">
@@ -58,7 +111,7 @@ export default () => {
                     </FormCheck.Label>
                   </FormCheck>
 
-                  <Button variant="primary" type="submit" as={Link} to={Routes.Signup2.path} className="w-100">
+                  <Button variant="primary" type="submit" onClick={doPasswordsMatch} className="w-100">
                     Sign up
                   </Button>
                 </Form>
@@ -71,7 +124,11 @@ export default () => {
                     </Card.Link>
                   </span>
                 </div>
+                {response.map((val) => {
+                return <h5>username: {val.username} | password: {val.password}</h5>
+              })}
               </div>
+              
             </Col>
           </Row>
         </Container>

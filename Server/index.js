@@ -1,6 +1,8 @@
 const express  = require("express");
+const cors = require ("cors");
 const app = express();
 const mysql = require ('mysql');
+
 
 const db = mysql.createPool({
   host: 'localhost',
@@ -11,24 +13,44 @@ const db = mysql.createPool({
     
 });
 
+app.use(cors());
+app.use(express.urlencoded({extended: true})); 
+app.use(express.json());
 
 
-app.get ("/", (req, res) => {
+app.post("/users/insert", (req, res) => {
 
-    const sqlInsert = "INSERT INTO users (username, password) VALUES ('mother', 'fucker')"
-    db.query(sqlInsert, (err, result) => {
-        res.send("hello Joao");
+    const username = req.body.username;
+    const password = req.body.password;
+
+    const sqlInsert = "INSERT INTO users (username, password) VALUES (?,?);"
+
+    db.query(sqlInsert,[username,password], (err, result) => {
+        console.log(err);
     })
-    
-});
+})
 
+app.get("/users/get", (req,res) => {
+    const sqlSelect = "SELECT * FROM users";
+    db.query(sqlSelect, (err, result) => {
+        res.send(result);
+    })
+})
 
-// app.post("api/insert", (req, res) => {
-//     const sqlInsert = "INSERT INTO test (name, surname) VALUES ('um','um');"
-//     db.query(sqlInsert,[name,surname], (err, result) => {
+app.get("/users/check-user", (req,res) => {
+    const username = req.body.username;
+    const sqlSelect = "SELECT username FROM users WHERE username='"+username+"';"
+    db.query(sqlSelect, (err, result) => {
+        // if(result.lenght === 0){
+        //     res.send(result);
+        // }else{
+        //     res.send(result.lenght);
+        // }
+        //res.send(result);
+        console.log(result)
+    })
+})
 
-//     })
-// })
 
 app.listen(3001,() => {
     console.log("running on port 3001");
