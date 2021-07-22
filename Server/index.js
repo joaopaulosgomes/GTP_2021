@@ -37,69 +37,57 @@ app.get("/users/get", (req,res) => {
     })
 })
 
-app.get("/users/check-user", (req,res) => {
+
+app.post("/signup/1", (req, res) => {
     const username = req.body.username;
-    const sqlSelect = "SELECT username FROM users WHERE username='"+username+"';"
-    db.query(sqlSelect, (err, result) => {
-        // if(result.lenght === 0){
-        //     res.send(result);
-        // }else{
-        //     res.send(result.lenght);
-        // }
-        //res.send(result);
-        console.log(result)
-    })
-})
+    const password = req.body.password;
+  
+    db.query(
+      "INSERT INTO users (username, password) VALUES (?, MD5(?))",
+      [username, password],
+      (err, result) => {
+        if (err) {
+          console.log(err);
+        } else {
+          res.send("Values Inserted");
+        }
+      }
+    );
+  });
+
+
+
+  app.post("/login", async (req, res) => {///////////meu ultimo teste de ontem
+    const { username } = req.body.username;
+  
+    const user = await users.findOne({ where: { username: username } });
+  
+    if (!user) res.status(400).json({ error: "User Doesn't Exist" });
+  
+    res.json("LOGGED IN");
+
+    // const dbPassword = user.password;
+    // bcrypt.compare(password, dbPassword).then((match) => {
+    //   if (!match) {
+    //     res
+    //       .status(400)
+    //       .json({ error: "Wrong Username and Password Combination!" });
+    //   } else {
+    //     const accessToken = createTokens(user);
+  
+    //     res.cookie("access-token", accessToken, {
+    //       maxAge: 60 * 60 * 24 * 30 * 1000,
+    //       httpOnly: true,
+    //     });
+  
+    //     //**res.json("LOGGED IN");
+    //   }
+    // });
+  });
+
+
 
 
 app.listen(3001,() => {
     console.log("running on port 3001");
 });
-
-
-// //######################################################################################################################################
-// const express = require ('express');
-// const mysql = require ('mysql');
-
-// const app = express();
-
-// var connection = mysql.createConnection({
-//     host: 'localhost',
-//     user: 'root',
-//     password: '',
-//     database: 'CarparkDB',
-//     port: '8889'
-// })
-
-// connection.connect((err) => {
-//     if(err) {
-//         throw err
-//     } else {
-//         console.log("connected")
-//     }
-// })
-
-// // connection.query('CREATE TABLE tableTest(id INT(255) UNSIGNED AUTO_INCREMENT PRIMARY KEY, thing VARCHAR(255) NOT NULL)', (err, rows) => {
-// //     if (err){
-// //         throw err
-// //     } else {
-// //         console.log("DATA SENT BOIS")
-// //         console.log(rows)
-// //     }
-// // })
-
-// connection.query("INSERT INTO test (name , surname) VALUES ('3', 'JOAO')", (err, rows) =>{
-//     if (err){
-//                  throw err
-//              } else {
-//                  console.log("DATA SENT BOIS")
-//                  console.log(rows)
-//     }
-// })
-
-// const port = process.env.PORT  || 5000;
-// app.listen(port);
-
-// console.log("App is listening on port " + port)
-
-// //https://www.youtube.com/watch?v=SyaJSKklH0U&ab_channel=Arslan

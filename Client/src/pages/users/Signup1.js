@@ -13,7 +13,6 @@ export default () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [confPassword, setConfPassword] = useState('')
   const [response, setResponse] = useState([])
 
   useEffect(() => {
@@ -29,37 +28,42 @@ export default () => {
       history.push("/path/to/push");
   }
 
-  const doPasswordsMatch = () => {
-    if (password === confPassword){
-      checkUser();
-    } else{
-      alert("Your Password doesn match. Try a dif one")
-    }
-  }
 
-  const checkUser = () => {
-    Axios.get('http://localhost:3001/users/check-user', {
-      username: username
-    })
-    // .then(response => console.log(response.data))
-    // .then(function(response) {
-    //   if(response.data.username === username) {
-    //     alert("This user is being used for another user")
-    //    }else(
-    //      addUsername()
-    //     );
-    //  })
-  }
 
-  const addUsername = () => {
-    Axios.post('http://localhost:3001/users/insert', {
-      username: username, 
-      password: password
-    })
-    
-    setResponse([...response, {username: username, password:password}])
-    
+  // {response.map((val) => {
+  //   return <h5>username: {val.username} | password: {val.password}</h5>
+  // })}
+
+
+
+
+
+
+
+
+  const [signup1List, setsignup1List] = useState([])
+
+  const addUser = () => {
+    Axios.post("http://localhost:3001/signup/1", {
+      username: username,
+      password: password,
+    }).then(() => {
+      setsignup1List([
+        ...signup1List,
+        {
+          username: username,
+          password: password,
+        },
+      ]);
+    });
   };
+
+
+
+
+
+
+
 
   return (
     <main>
@@ -95,15 +99,6 @@ export default () => {
                       <Form.Control required type="password" placeholder="Password" onChange={(e)=> {setPassword(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
-                  <Form.Group id="confirmPassword" className="mb-4">
-                    <Form.Label>Confirm Password</Form.Label>
-                    <InputGroup>
-                      <InputGroup.Text>
-                        <FontAwesomeIcon icon={faUnlockAlt} />
-                      </InputGroup.Text>
-                      <Form.Control required type="password" placeholder="Confirm Password" onChange={(e)=> {setConfPassword(e.target.value)}}/>
-                    </InputGroup>
-                  </Form.Group>
                   <FormCheck type="checkbox" className="d-flex mb-4">
                     <FormCheck.Input required id="terms" className="me-2" />
                     <FormCheck.Label htmlFor="terms">
@@ -111,7 +106,7 @@ export default () => {
                     </FormCheck.Label>
                   </FormCheck>
 
-                  <Button variant="primary" type="submit" onClick={doPasswordsMatch} className="w-100">
+                  <Button variant="primary" type="submit" className="w-100" onClick={addUser}>
                     Sign up
                   </Button>
                 </Form>
@@ -124,9 +119,7 @@ export default () => {
                     </Card.Link>
                   </span>
                 </div>
-                {response.map((val) => {
-                return <h5>username: {val.username} | password: {val.password}</h5>
-              })}
+               
               </div>
               
             </Col>
