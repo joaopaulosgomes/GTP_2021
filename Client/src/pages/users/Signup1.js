@@ -15,12 +15,12 @@ export default () => {
   const [password, setPassword] = useState('')
   const [response, setResponse] = useState([])
 
-  useEffect(() => {
-    Axios.get('http://localhost:3001/users/get').then((response)=>{
-      setResponse(response.data)
-    })
+  // useEffect(() => {
+  //   Axios.get('http://localhost:3001/users/get').then((response)=>{
+  //     setResponse(response.data)
+  //   })
     
-  },[]);
+  // },[]);
 
   const history = useHistory();
 
@@ -28,28 +28,15 @@ export default () => {
       history.push("/path/to/push");
   }
 
+  const [registerList, setRegisterList] = useState([])
 
-
-  // {response.map((val) => {
-  //   return <h5>username: {val.username} | password: {val.password}</h5>
-  // })}
-
-
-
-
-
-
-
-
-  const [signup1List, setsignup1List] = useState([])
-
-  const addUser = () => {
-    Axios.post("http://localhost:3001/signup/1", {
+  const register = () => {
+    Axios.post("http://localhost:3001/register/1", {
       username: username,
       password: password,
     }).then(() => {
-      setsignup1List([
-        ...signup1List,
+      setRegisterList([
+        ...registerList,
         {
           username: username,
           password: password,
@@ -106,7 +93,7 @@ export default () => {
                     </FormCheck.Label>
                   </FormCheck>
 
-                  <Button variant="primary" type="submit" className="w-100" onClick={addUser}>
+                  <Button variant="primary" type="submit" className="w-100" onClick={register}>
                     Sign up
                   </Button>
                 </Form>

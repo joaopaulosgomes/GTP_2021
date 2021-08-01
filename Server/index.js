@@ -43,7 +43,7 @@ app.post("/signup/1", (req, res) => {
     const password = req.body.password;
   
     db.query(
-      "INSERT INTO users (username, password) VALUES (?, MD5(?))",
+      "INSERT INTO user (username, password) VALUES (?, MD5(?))",
       [username, password],
       (err, result) => {
         if (err) {
@@ -57,32 +57,25 @@ app.post("/signup/1", (req, res) => {
 
 
 
-  app.post("/login", async (req, res) => {///////////meu ultimo teste de ontem
-    const { username } = req.body.username;
-  
-    const user = await users.findOne({ where: { username: username } });
-  
-    if (!user) res.status(400).json({ error: "User Doesn't Exist" });
-  
-    res.json("LOGGED IN");
-
-    // const dbPassword = user.password;
-    // bcrypt.compare(password, dbPassword).then((match) => {
-    //   if (!match) {
-    //     res
-    //       .status(400)
-    //       .json({ error: "Wrong Username and Password Combination!" });
-    //   } else {
-    //     const accessToken = createTokens(user);
-  
-    //     res.cookie("access-token", accessToken, {
-    //       maxAge: 60 * 60 * 24 * 30 * 1000,
-    //       httpOnly: true,
-    //     });
-  
-    //     //**res.json("LOGGED IN");
-    //   }
-    // });
+  app.post('/login', function(request, response) {
+    var username = request.body.username;
+    var password = request.body.password;
+    if (username && password) {
+      db.query('SELECT * FROM users WHERE username = ? AND password = ?', [username, password], function(error, results, fields) {
+        if (results.length > 0) {
+          request.session.loggedin = true;
+          request.session.username = username;
+          //response.redirect('/home');
+          response.send('Logged in!');
+        } else {
+          response.send('Incorrect Username and/or Password!');
+        }			
+        response.end();
+      });
+    } else {
+      response.send('Please enter Username and Password!');
+      response.end();
+    }
   });
 
 

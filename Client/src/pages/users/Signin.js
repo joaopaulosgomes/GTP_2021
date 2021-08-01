@@ -20,42 +20,42 @@ export default () => {
 
   let history = useHistory();
 
-  // const [loginStatus, setLoginStatus] = useState("");
-
-  // const login = () => {
-  //   Axios.post("http://localhost:3001/login", {
-  //     username: username,
-  //     password: password,
-  //   }).then((response) => {
-  //     if (response.data.message) {
-  //       setLoginStatus(response.data.message);
-  //     } else {
-  //       setLoginStatus(response.data[0].username);
-  //     }
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   Axios.get("http://localhost:3001/login").then((response) => {
-  //     if (response.data.loggedIn == true) {
-  //       setLoginStatus(response.data.user[0].username);
-  //     }
-  //   });
-  // }, []);
- 
-
+  const [loginStatus, setLoginStatus] = useState("");
 
   const login = () => {
-    const data = { username: username, password: password };
-    Axios.post("http://localhost:3001/login", data).then((response) => {
-      if (response.data.error) {
-        alert(response.data.error);
+    Axios.post("http://localhost:3001/login", {
+      username: username,
+      password: password,
+    }).then((response) => {
+      if (response.data.message) {
+        setLoginStatus(response.data.message);
       } else {
-        //sessionStorage.setItem("accessToken", response.data);
-        history.push("/");
+        setLoginStatus(response.data[0].username);
       }
     });
   };
+
+  useEffect(() => {
+    Axios.get("http://localhost:3001/login").then((response) => {
+      if (response.data.loggedIn == true) {
+        setLoginStatus(response.data.user[0].username);
+      }
+    });
+  }, []);
+ 
+
+
+  // const login = () => {
+  //   const data = { username: username, password: password };
+  //   Axios.post("http://localhost:3001/Auth/login", data).then((response) => {
+  //     if (response.data.error) {
+  //       alert(response.data.error);
+  //     } else {
+  //       sessionStorage.setItem("accessToken", response.data);
+  //       history.push("/");
+  //     }
+  //   });
+  // };
 
   return (
     <main>
