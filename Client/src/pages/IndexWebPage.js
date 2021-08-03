@@ -29,8 +29,8 @@ export default () => {
               </Nav>
             </Navbar.Collapse>
 
-            <Button as={HashLink} to={Routes.DashboardOverview.path} variant="outline-white" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Login</Button>
-            <Button as={HashLink} to={Routes.Signin.path} variant="outline-white" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Alternative</Button>
+            <Button as={HashLink} to={Routes.DashboardOverview.path} variant="outline-dark" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Login</Button>
+            <Button as={HashLink} to={Routes.Signin.path} variant="outline-white" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Login [*]</Button>
           </div>
         </Container>
       </Navbar>

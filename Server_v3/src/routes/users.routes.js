@@ -9,6 +9,9 @@ router.get('/', userController.getUserList);
 // get user by ID
 router.get('/:id',userController.getUserByID);
 
+// get user by Username
+router.get('/search/:username',userController.getUserByUsername);
+
 // get ID for Update 
 router.get('/searchRecord/:first_name',userController.getUserByName);
 

@@ -4,9 +4,9 @@ var User = function(users){
     this.username       =   users.username;
     this.email          =   users.email;
     this.password       =   users.password;
-    this.first_name     =   users.fname;
-    this.last_name      =   users.lname;
-    this.phone_number   =   users.phone;
+    this.first_name     =   users.first_name;
+    this.last_name      =   users.last_name;
+    this.phone_number   =   users.phone_number;
     this.user_type      =   users.user_type;
 }
 
@@ -64,11 +64,26 @@ User.getUserByID = (id, result)=>{
     })
 }
 
+// get user by ID for update
+User.getUserByUsername = (username, result)=>{
+    dbConn.query('SELECT * FROM users WHERE username=?', username, (err, res)=>{
+        if(err)
+        {
+            console.log('Error while fetching user by username', err);
+            result(null, err);
+        }
+        else
+        {
+            result(null, res);
+        }
+    })
+}
+
 
 // update user
 User.updateUser = (id, userReqData, result)=>{
-    dbConn.query("UPDATE users SET username=?, email=?, password=?, first_name=?, last_name=?, phone_number=?, user_type=? WHERE id = ?",
-    [userReqData.username, userReqData.email, userReqData.password, userReqData.first_name, userReqData.last_name, userReqData.phone_number, userReqData.user_type, id], (err, res)=>{
+    dbConn.query("UPDATE users SET email=?, first_name=?, last_name=?, phone_number=? WHERE id = ?",
+    [userReqData.email, userReqData.first_name, userReqData.last_name, userReqData.phone_number, id], (err, res)=>{
         
         if(err){
             console.log('Error while updating the user');

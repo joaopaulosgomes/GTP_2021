@@ -1,55 +1,30 @@
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
 import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Routes } from "../../routes";
-
-import Axios from 'axios';
+import axios from 'axios';
 
 
 export default () => {
 
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [response, setResponse] = useState([])
-
-  // useEffect(() => {
-  //   Axios.get('http://localhost:3001/users/get').then((response)=>{
-  //     setResponse(response.data)
-  //   })
-    
-  // },[]);
-
+  
   const history = useHistory();
 
-  const handleClick = () => {
-      history.push("/path/to/push");
-  }
-
-  const [registerList, setRegisterList] = useState([])
-
   const register = () => {
-    Axios.post("http://localhost:3001/register/1", {
-      username: username,
-      password: password,
-    }).then(() => {
-      setRegisterList([
-        ...registerList,
-        {
-          username: username,
-          password: password,
-        },
-      ]);
+    const data = { username: username, password: password };
+    axios.post("http://localhost:7000/register", data).then((response) => {
+      if (response.data.error) {
+        console.log(response.data.error);
+      } else {
+        history.push("/sign-up/2");
+      }
     });
   };
-
-
-
-
-
-
 
 
   return (
@@ -86,12 +61,9 @@ export default () => {
                       <Form.Control required type="password" placeholder="Password" onChange={(e)=> {setPassword(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
-                  <FormCheck type="checkbox" className="d-flex mb-4">
-                    <FormCheck.Input required id="terms" className="me-2" />
-                    <FormCheck.Label htmlFor="terms">
-                      I agree to the <Card.Link>terms and conditions</Card.Link>
-                    </FormCheck.Label>
-                  </FormCheck>
+                  
+                  
+
 
                   <Button variant="primary" type="submit" className="w-100" onClick={register}>
                     Sign up

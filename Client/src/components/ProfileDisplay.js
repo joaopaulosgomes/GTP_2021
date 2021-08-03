@@ -1,15 +1,10 @@
 
 import React, { useState } from "react";
-import moment from "moment-timezone";
-import Datetime from "react-datetime";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Card, Form, Button, InputGroup } from '@themesberg/react-bootstrap';
+import { Col, Row, Card, Form } from '@themesberg/react-bootstrap';
 
 
 export const ProfileDisplay = () => {
-  const [birthday, setBirthday] = useState("");
-
+ 
   return (
     <Card border="light" className="bg-white shadow-sm mb-4">
       <Card.Body>

@@ -1,13 +1,37 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Form, Card, Button, Container, InputGroup } from '@themesberg/react-bootstrap';
+import { Link, useHistory } from 'react-router-dom';
 import { Routes } from "../../routes";
+import axios from 'axios';
 
 
 export default () => {
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const id = '22';
+  
+  const history = useHistory();
+
+  const updateUser = () => {
+    const data = { first_name: fname, last_name: lname, email: email, phone_number: phone };
+
+    axios.put(`http://localhost:7000/api/carpark/user/${id}`, data).then((response) => {
+      if (response.data.error) {
+        console.log(response.data.error);
+      } else {
+        history.push("/sign-up/3");
+      }
+    });
+  };
+
+
+
+
   return (
     <main>
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
@@ -27,36 +51,36 @@ export default () => {
 
 
                 <Form className="mt-4">
-                  <Form.Group id="firsName" className="mb-4">
+                  <Form.Group id="firstName" className="mb-4">
                     <Form.Label>First name</Form.Label>
                     <InputGroup>
-                      <Form.Control required type="text" placeholder="Enter your first name" />
+                      <Form.Control required type="text" placeholder="Enter your first name" onChange={(e)=> {setFname(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
 
                   <Form.Group id="lastName" className="mb-4">
                     <Form.Label>Last name</Form.Label>
                     <InputGroup>
-                      <Form.Control required type="text" placeholder="Also your last name" />
+                      <Form.Control required type="text" placeholder="Also your last name" onChange={(e)=> {setLname(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
 
                   <Form.Group id="email" className="mb-4">
                     <Form.Label>E-mail</Form.Label>
                     <InputGroup>
-                      <Form.Control required type="email" placeholder="name@company.com" />
+                      <Form.Control required type="email" placeholder="name@company.com" onChange={(e)=> {setEmail(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
                   
                   <Form.Group id="phone" className="mb-4">
                     <Form.Label>Phone/Mobile</Form.Label>
                     <InputGroup>
-                      <Form.Control required type="number" placeholder="(+353) 12 345 6789" />
+                      <Form.Control required type="number" placeholder="(+353) 12 345 6789" onChange={(e)=> {setPhone(e.target.value)}}/>
                     </InputGroup>
                   </Form.Group>
 
 
-                  <Button variant="primary" type="submit" as={Link} to={Routes.Signup3.path} className="w-100">
+                  <Button variant="primary" type="submit" className="w-100" onClick={updateUser}>
                     Next
                   </Button>
 

@@ -55,6 +55,18 @@ exports.getUserByID = (req, res)=>{
     })
 }
 
+// get user by ID  for Update 
+exports.getUserByUsername = (req, res)=>{
+    //console.log('get users by id');
+    UserModel.getUserByUsername(req.params.username, (err, users)=>{
+        if(err)
+        res.send(err);
+        console.log('single user data',users);
+        
+        res.send(JSON.stringify({ status: 200, error: null, response: users }));
+    })
+}
+
 
 // update user
 exports.updateUser = (req, res)=>{

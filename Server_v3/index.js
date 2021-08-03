@@ -9,7 +9,9 @@ const bcrypt = require("bcrypt");
 
 const saltRounds = 10;
 
-//app.use(cors())
+const { sign } = require('jsonwebtoken');
+
+app.use(cors())
 // create express app
 
 //save the login data of the session
@@ -63,35 +65,45 @@ app.listen(port, ()=>{
 
 //###############################################################
 
-
-app.use(
-    cors({
-      origin: ["http://localhost:3000"],
-      methods: ["GET", "POST"],
-      credentials: true,
-    })
-  );
   app.use(cookieParser());
   app.use(express.urlencoded({extended: true}));
 
   app.post("/register", (req, res) => {
     const username = req.body.username;
     const password = req.body.password;
-  
-    bcrypt.hash(password, saltRounds, (err, hash) => {
-      if (err) {
-        console.log(err);
-      }
-  
-      dbConn.query(
-        "INSERT INTO users (username, password) VALUES (?,?)",
-        [username, hash],
-        (err, result) => {
-          console.log(err);
+    
+
+    dbConn.query(
+      "SELECT * FROM users WHERE username = ?;",
+      username,
+      (err, result) => {
+        if (err) {
+          res.send({ err: err });
         }
-      );
-    });
-  });
+  
+        if (result.length > 0) {
+          //res.send({ message: "This user has been used" });
+          res.status(401).send({ error: 'This user has been used!' })
+
+        }else{
+          bcrypt.hash(password, saltRounds, (err, hash) => {
+            if (err) {
+              console.log(err);
+            }
+        
+            dbConn.query(
+              "INSERT INTO users (username, password) VALUES (?,?)",
+              [username, hash],
+              (err, result) => {
+                console.log(err);
+              }
+            );
+            res.send({ message: "User was register successfully!" });
+          });
+        }
+    
+      })
+});
   
 
   app.get("/login", (req, res) => {
@@ -106,6 +118,7 @@ app.use(
     const username = req.body.username;
     const password = req.body.password;
   
+
     dbConn.query(
       "SELECT * FROM users WHERE username = ?;",
       username,
@@ -117,16 +130,27 @@ app.use(
         if (result.length > 0) {
           bcrypt.compare(password, result[0].password, (error, response) => {
             if (response) {
-              req.session.user = result;
-              console.log(req.session.user);
-              res.send(result);
+   
+              const accessToken = sign(
+                { user_id: req.body.id, username },
+                "my_s3cret",
+                {
+                  expiresIn: "2h",
+                }
+              );
+            
+              res.json(accessToken);
+
             } else {
-              res.send({ message: "Wrong username/password combination!" });
+              //res.send({ message: "Wrong username/password combination!" });
+              res.status(403).send({ error: 'Wrong username/password combination!' })
             }
           });
         } else {
-          res.send({ message: "User doesn't exist" });
+          //res.send({ message: "User doesn't exist" });
+          res.status(404).send({ error: 'User doesnt exist!' })
         }
       }
     );
+
   });
