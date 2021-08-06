@@ -13,22 +13,20 @@ export default () => {
   const [lname, setLname] = useState('');
   const [email, setEmail] = useState('');
   const [phone, setPhone] = useState('');
-  const id = '22';
   
   const history = useHistory();
 
-  const updateUser = () => {
+  const registerUser = () => {
     const data = { first_name: fname, last_name: lname, email: email, phone_number: phone };
-
-    axios.put(`http://localhost:7000/api/carpark/user/${id}`, data).then((response) => {
+    axios.post("http://localhost:7000/api/carpark/users", data).then((response) => {
       if (response.data.error) {
         console.log(response.data.error);
       } else {
-        history.push("/sign-up/3");
+        alert("Your details was added!")
+        history.push("/register/3");
       }
     });
   };
-
 
 
 
@@ -38,7 +36,7 @@ export default () => {
         <Container>
           <p className="text-center">
             <Card.Link as={Link} to={Routes.IndexWebPage.path} className="text-gray-700">
-              <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Cancel create user
+              <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Cancel booking
             </Card.Link>
           </p>
           <Row className="justify-content-center form-bg-image">
@@ -80,8 +78,8 @@ export default () => {
                   </Form.Group>
 
 
-                  <Button variant="primary" type="submit" className="w-100" onClick={updateUser}>
-                    Next
+                  <Button variant="primary" type="submit" className="w-100" onClick={registerUser}>
+                    Add Personal Details
                   </Button>
 
                 </Form>

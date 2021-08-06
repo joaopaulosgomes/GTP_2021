@@ -21,8 +21,9 @@ export default () => {
     const data = { username: username, password: password };
     axios.post("http://localhost:7000/login", data).then((response) => {
       if (response.data.error) {
-        alert(response.data.error);
+        console.log(response.data.error);
       } else {
+        alert("Youre logged in!");
         sessionStorage.setItem("accessToken", response.data);
         history.push("/dashboard/overview");
       }
@@ -41,12 +42,6 @@ export default () => {
           <Row className="justify-content-center form-bg-image">
             <Col xs={12} className="d-flex align-items-center justify-content-center">
               <div className="bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
-              <Button variant="gray" type="submit" className="w-100">
-                    Make a quick reservation
-              </Button>
-              <div className="text-center text-md-center mt-2">
-                <h5 className="mb-0">or</h5>
-              </div>
               <div className="text-center text-md-center mb-4 mt-md-0">
                 <h3 className="mb-0">Sign in to Car Park</h3>
               </div>
@@ -86,9 +81,9 @@ export default () => {
                 
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
-                    Not registered?
-                    <Card.Link as={Link} to={Routes.Signup1.path} className="fw-bold">
-                      {` Create account `}
+                    Wanna make a reservation?
+                    <Card.Link as={Link} to={Routes.Register_2.path} className="fw-bold">
+                      {` Make a reservation `}
                     </Card.Link>
                   </span>
                 </div>

@@ -14,8 +14,9 @@ export default () => {
   const [type, setType] = useState('');
   const [numberPlate, setNumberPlate] = useState('');
   const [colour, setColour] = useState('');
+  const [service, setService] = useState('carpark-booking');
 
-  const id = '22';
+  const id = '1';
   
   const history = useHistory();
 
@@ -26,14 +27,11 @@ export default () => {
       if (response.data.error) {
         console.log(response.data.error);
       } else {
-        alert("Your vehicle has been added successfully!!")
-        history.push("/dashboard/overview");
+        alert("Your vehicle was added!")
+        history.push(`/${service}`);
       }
     });
   };
-
-
-
 
   return (
     <main>
@@ -41,7 +39,7 @@ export default () => {
         <Container>
           <p className="text-center">
             <Card.Link as={Link} to={Routes.IndexWebPage.path} className="text-gray-700">
-              <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Cancel create user
+              <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Cancel booking
             </Card.Link>
           </p>
           <Row className="justify-content-center form-bg-image">
@@ -49,9 +47,6 @@ export default () => {
 
               <div className="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h5 className="mb-0">Well done!</h5>
-                  <h6 className="mb-0">This is the last screen to creat your account</h6>
-                  <h5 className="mb-0">.  .  .</h5>
                   <h3 className="mb-0">Your vehicle details</h3>
                 </div>
 
@@ -67,24 +62,33 @@ export default () => {
                   <Form.Group id="type" className="mb-4">
                     <Form.Label>Select type</Form.Label>
                     <Form.Select defaultValue="0" onChange={(e)=> {setType(e.target.value)}}>
-                      <option value="0">Type</option>
-                      <option value="1">Motocycle</option>
-                      <option value="2">Car</option>
-                      <option value="3">Van</option>
-                      <option value="4">SUV</option>
-                      <option value="5">Jipe</option>
-                      <option value="6">SmallBus</option>
+                      <option value="NONE">Type</option>
+                      <option value="Motocycle">Motocycle</option>
+                      <option value="Car">Car</option>
+                      <option value="SUV">SUV</option>
+                      <option value="Jipe">Jipe</option>
+                      <option value="Van">Van</option>
+                      <option value="Small bus">SmallBus</option>
                     </Form.Select>
                   </Form.Group>
 
                   <Form.Group className="mb-4">
                     <Form.Label>Select make</Form.Label>
                     <Form.Select id="make" defaultValue="0" onChange={(e)=> {setMake(e.target.value)}}>
-                      <option value="0">Make</option>
-                      <option value="AL">Toyota</option>
-                      <option value="AK">Tesla</option>
-                      <option value="AZ">Alpha</option>
-                      <option value="AR">VW</option>
+                      <option value="NONE">Make</option>
+                      <option value="AlphaRomeo">AlphaRomeo</option>
+                      <option value="Audi">Audi</option>
+                      <option value="BMW">BMW</option>
+                      <option value="Citroen">Citroen</option>
+                      <option value="Fiat">Fiat</option>
+                      <option value="Mazda">Mazda</option>
+                      <option value="Mercedez">Mercedez</option>
+                      <option value="Mini">Mini</option>
+                      <option value="Nissan">Nissan</option>
+                      <option value="Peugeot">Peugeot</option>
+                      <option value="Volkswagen">Volkswagen</option>
+                      <option value="Tesla">Tesla</option>
+                      <option value="Toyota">Toyota</option>
                     </Form.Select>
                   </Form.Group>
                   
@@ -96,17 +100,29 @@ export default () => {
                   <Form.Group className="mb-4">
                     <Form.Label>Select colour</Form.Label>
                     <Form.Select id="colour" defaultValue="0" onChange={(e)=> {setColour(e.target.value)}}>
-                      <option value="0">Colour</option>
-                      <option value="WT">White</option>
-                      <option value="BL">Blue</option>
-                      <option value="BK">Black</option>
-                      <option value="RD">Red</option>
+                      <option value="NONE">Colour</option>
+                      <option value="white">White</option>
+                      <option value="blue">Blue</option>
+                      <option value="black">Black</option>
+                      <option value="green">Green</option>
+                      <option value="marron">Marron</option>
+                      <option value="red">Red</option>
+                      <option value="silver">Silver</option>
+                    </Form.Select>
+                  </Form.Group>
+
+                  <Form.Group className="mb-4">
+                    <Form.Label>Service desired</Form.Label>
+                    <Form.Select id="service" defaultValue="carpark-booking" onChange={(e)=> {setService(e.target.value)}}>
+                      <option value="carpark-booking">CAR PARK</option>
+                      <option value="carwash-booking">CAR WASH</option>
+                      <option value="membership-booking">MEMBERSHIP</option>
                     </Form.Select>
                   </Form.Group>
 
 
                   <Button variant="primary" type="submit" onClick={postVehicle} className="w-100">
-                    Finish
+                    Add Vehicle Details
                   </Button>
 
                 </Form>

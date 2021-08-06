@@ -44,12 +44,16 @@ app.get('/', (req, res)=>{
 const usersRoutes = require('./src/routes/users.routes');
 const vehicleRoutes = require('./src/routes/vehicle.routes');
 const reservationRoutes = require('./src/routes/reservation.routes');
+const carwashRoutes = require('./src/routes/carwash.routes');
+const membershipRoutes = require('./src/routes/membership.routes');
 //const loginRoutes = require('./src/routes/login.routes');
 
 // create all the carpark routes
-app.use('/api/carpark/user', usersRoutes);
+app.use('/api/carpark/users', usersRoutes);
 app.use('/api/carpark/vehicle', vehicleRoutes);
 app.use('/api/carpark/reservation', reservationRoutes);
+app.use('/api/carpark/carwash', carwashRoutes);
+app.use('/api/carpark/membership', membershipRoutes);
 //app.use('/api/carpark/login', loginRoutes);
 
 // listen to the port
@@ -74,7 +78,7 @@ app.listen(port, ()=>{
     
 
     dbConn.query(
-      "SELECT * FROM users WHERE username = ?;",
+      "SELECT * FROM login WHERE username = ?;",
       username,
       (err, result) => {
         if (err) {
@@ -92,7 +96,7 @@ app.listen(port, ()=>{
             }
         
             dbConn.query(
-              "INSERT INTO users (username, password) VALUES (?,?)",
+              "INSERT INTO login (username, password) VALUES (?,?)",
               [username, hash],
               (err, result) => {
                 console.log(err);
@@ -103,15 +107,6 @@ app.listen(port, ()=>{
         }
     
       })
-});
-  
-
-  app.get("/login", (req, res) => {
-    if (req.session.user) {
-      res.send({ loggedIn: true, user: req.session.user });
-    } else {
-      res.send({ loggedIn: false });
-    }
   });
   
   app.post("/login", (req, res) => {
@@ -120,7 +115,7 @@ app.listen(port, ()=>{
   
 
     dbConn.query(
-      "SELECT * FROM users WHERE username = ?;",
+      "SELECT * FROM login WHERE username = ?;",
       username,
       (err, result) => {
         if (err) {
@@ -142,12 +137,10 @@ app.listen(port, ()=>{
               res.json(accessToken);
 
             } else {
-              //res.send({ message: "Wrong username/password combination!" });
               res.status(403).send({ error: 'Wrong username/password combination!' })
             }
           });
         } else {
-          //res.send({ message: "User doesn't exist" });
           res.status(404).send({ error: 'User doesnt exist!' })
         }
       }

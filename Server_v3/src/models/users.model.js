@@ -1,13 +1,10 @@
 var dbConn  = require('../../config/db.config');
 
 var User = function(users){
-    this.username       =   users.username;
     this.email          =   users.email;
-    this.password       =   users.password;
     this.first_name     =   users.first_name;
     this.last_name      =   users.last_name;
     this.phone_number   =   users.phone_number;
-    this.user_type      =   users.user_type;
 }
 
 // get all users

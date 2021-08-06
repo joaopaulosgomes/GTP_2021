@@ -1,9 +1,9 @@
 
-import React from "react";
+import React, {useEffect, useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Card, Table } from '@themesberg/react-bootstrap';
-
+import { Card, Table} from '@themesberg/react-bootstrap';
+import axios from 'axios';
 
 import transactions from "../data/transactions";
 
@@ -96,10 +96,28 @@ export const UsersReservationTable = () => {
 
 
 export const AdmReservationTable = () => {
-  const totalTransactions = transactions.length;
+
+  const [record,setRecord] = useState([]);
+
+  useEffect(() => {
+    getReservation();
+  });
+
+  const getReservation = async () =>  
+    {
+      var response = fetch('http://localhost:7000/api/carpark/reservation')
+         .then(function(response){
+            return response.json();
+          })
+         .then(function(myJson) {
+            setRecord(myJson);
+          });
+    }
+
+  const totalData = record.length;
 
   const TableRow = (props) => {
-    const { invoiceNumber, subscription, price, issueDate, dueDate, status } = props;
+    const { id, type, price, created_at, numb_days, from_date, status } = props;
     const statusVariant = status === "Paid" ? "success"
       : status === "Due" ? "warning"
         : status === "Canceled" ? "danger" : "primary";
@@ -108,22 +126,22 @@ export const AdmReservationTable = () => {
       <tr>
         <td>
           <span className="fw-normal">
-            {invoiceNumber}
+            {id}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {subscription}
+            {type}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {issueDate}
+            {from_date}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {invoiceNumber}
+            {numb_days}
           </span>
         </td>
         <td>
@@ -164,7 +182,7 @@ export const AdmReservationTable = () => {
             </tr>
           </thead>
           <tbody>
-            {transactions.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
+            {record.map(t => <TableRow key={`record-${t.id}`} {...t} />)}
           </tbody>
         </Table>
       </Card.Body>

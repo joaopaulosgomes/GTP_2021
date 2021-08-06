@@ -9,9 +9,12 @@ import Transactions from "./Transactions";
 import Settings from "./Settings";
 import BootstrapTables from "./other/BootstrapTables";
 import Signin from "./users/Signin";
-import Signup1 from "./users/Signup1";
-import Signup2 from "./users/Signup2";
-import Signup3 from "./users/Signup3";
+import Register_00 from "./users/Register-00";
+import Register_2 from "./users/Register-2";
+import Register_3 from "./users/Register-3";
+import CarparkBooking from "./products/CarparkBooking";
+import CarwashBooking from "./products/CarwashBooking";
+import MembershipBooking from "./products/MembershipBooking";
 import NotFoundPage from "./other/NotFound";
 import ServerError from "./other/ServerError";
 
@@ -81,9 +84,12 @@ export default () => (
   <Switch>
     <RouteWithLoader exact path={Routes.IndexWebPage.path} component={IndexWebPage} />
     <RouteWithLoader exact path={Routes.Signin.path} component={Signin} />
-    <RouteWithLoader exact path={Routes.Signup1.path} component={Signup1} />
-    <RouteWithLoader exact path={Routes.Signup2.path} component={Signup2} />
-    <RouteWithLoader exact path={Routes.Signup3.path} component={Signup3} />
+    <RouteWithLoader exact path={Routes.Register_00.path} component={Register_00} />
+    <RouteWithLoader exact path={Routes.Register_2.path} component={Register_2} />
+    <RouteWithLoader exact path={Routes.Register_3.path} component={Register_3} />
+    <RouteWithLoader exact path={Routes.CarparkBooking.path} component={CarparkBooking} />
+    <RouteWithLoader exact path={Routes.CarwashBooking.path} component={CarwashBooking} />
+    <RouteWithLoader exact path={Routes.MembershipBooking.path} component={MembershipBooking} />
     <RouteWithLoader exact path={Routes.NotFound.path} component={NotFoundPage} />
     <RouteWithLoader exact path={Routes.ServerError.path} component={ServerError} />
 

@@ -1,11 +1,14 @@
 var dbConn  = require('../../config/db.config');
 
 var Reservation = function(reservation){
-    this.from_date    =   reservation.from_date;
+    const myDate      =   reservation.from_date;
+    const myDate2     =   myDate.split("T");
+    this.from_date    =   myDate2[0];
+    //this.from_date    =   reservation.from_date;
     this.numb_days    =   reservation.numb_days;
     this.type         =   reservation.type;
+    //this.status       =   reservation.status;
     this.price        =   reservation.price;
-    this.status       =   reservation.status;
     this.user_id      =   reservation.user_id;
     this.vehicle_id  =   reservation.vehicle_id;
 
@@ -70,7 +73,7 @@ Reservation.getReservationByID = (id, result)=>{
 Reservation.updateReservation = (id, reservationReqData, result)=>{
     dbConn.query("UPDATE reservation SET from_date=?, numb_days=?, type=?, price=?, status=?, user_id=?, vehicle_id=? WHERE id = ?",
     [reservationReqData.from_date, reservationReqData.numb_days, reservationReqData.type, reservationReqData.price,
-        reservationReqData.status, reservationReqData.user_id, reservationReqData.vehicle_id, id], (err, res)=>{
+        reservationReqData.user_id, reservationReqData.vehicle_id, id], (err, res)=>{
         if(err){
             console.log('Error while updating the reservation');
             result(null, err);
