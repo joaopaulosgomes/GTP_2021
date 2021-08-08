@@ -1,37 +1,85 @@
 
-import React, {useState} from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
+import React, { useState, useEffect } from "react";
+import moment from "moment-timezone";
+import Datetime from "react-datetime";
+import { FontAwesomeIcon,  } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Form, Card, Button, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Routes } from "../../routes";
 import axios from 'axios';
 
-
 export default () => {
+  const [fname, setFname] = useState('');
+  const [lname, setLname] = useState('');
+  const [email, setEmail] = useState('');
+  const [phone, setPhone] = useState('');
+  const [date, setDate] = useState('');
+  const [washType, setWashType] = useState('');
+  const [price, setPrice] = useState('');
   const [make, setMake] = useState('');
   const [model, setModel] = useState('');
   const [type, setType] = useState('');
   const [numberPlate, setNumberPlate] = useState('');
   const [colour, setColour] = useState('');
-  const [service, setService] = useState('carpark-booking');
 
-  const id = '1';
+  useEffect(() => {
+    setPrices();
+  });
   
   const history = useHistory();
 
-  const postVehicle = () => {
-    const data = { make: make, model: model, type: type, number_plate:numberPlate, colour: colour, user_id:id};
+  //this function picks the price up based on option selected
+  const setPrices = () => {
+    if(washType==="Silver"){
+      setPrice("20.00");
+    }else{
+      if(washType==="Golden"){
+        setPrice("40.00");
+      }
+      else{
+        setPrice("55.00");
+      }
+    }
+  }
 
+  //This function posts a user register
+  const registerUser = () => {
+    const data = { first_name: fname, last_name: lname, email: email, phone_number: phone };
+    axios.post("http://localhost:7000/api/carpark/users", data).then((response) => {
+      if (response.data.error) {
+        console.log(response.data.error);
+      } else {
+        postVehicle(response.data.id);
+      }
+    });
+  };
+
+  //This function posts a Vehicle register
+  const postVehicle = (userID) => {
+    const data = { make: make, model: model, type: type, number_plate:numberPlate, colour: colour, user_id: userID};
     axios.post("http://localhost:7000/api/carpark/vehicle", data).then((response) => {
       if (response.data.error) {
         console.log(response.data.error);
       } else {
-        alert("Your vehicle was added!")
-        history.push(`/${service}`);
+        postCarwash(response.data.id, userID);
       }
     });
   };
+
+  //This function posts a car park reservation
+  const postCarwash = (vehicleID, userID) => {
+    const data = { date: date, type: washType, price: price, user_id: userID, vehicle_id: vehicleID};
+    axios.post("http://localhost:7000/api/carpark/carwash", data).then((response) => {
+      if (response.data.error) {
+        console.log(response.data.error);
+      } else {
+        alert("Your reservation has been added successfully!!")
+        history.push("/")
+      }
+    });
+  };
+
 
   return (
     <main>
@@ -47,11 +95,42 @@ export default () => {
 
               <div className="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
-                  <h3 className="mb-0">Your vehicle details</h3>
+                  <h3 className="mb-0">Personal details</h3>
                 </div>
 
-
                 <Form className="mt-4">
+                  <Form.Group id="firstName" className="mb-4">
+                    <Form.Label>First name</Form.Label>
+                    <InputGroup>
+                      <Form.Control required type="text" placeholder="Enter your first name" onChange={(e)=> {setFname(e.target.value)}}/>
+                    </InputGroup>
+                  </Form.Group>
+
+                  <Form.Group id="lastName" className="mb-4">
+                    <Form.Label>Last name</Form.Label>
+                    <InputGroup>
+                      <Form.Control required type="text" placeholder="Also your last name" onChange={(e)=> {setLname(e.target.value)}}/>
+                    </InputGroup>
+                  </Form.Group>
+
+                  <Form.Group id="email" className="mb-4">
+                    <Form.Label>E-mail</Form.Label>
+                    <InputGroup>
+                      <Form.Control required type="email" placeholder="name@company.com" onChange={(e)=> {setEmail(e.target.value)}}/>
+                    </InputGroup>
+                  </Form.Group>
+                  
+                  <Form.Group id="phone" className="mb-4">
+                    <Form.Label>Phone/Mobile</Form.Label>
+                    <InputGroup>
+                      <Form.Control required type="number" placeholder="(+353) 12 345 6789" onChange={(e)=> {setPhone(e.target.value)}}/>
+                    </InputGroup>
+                  </Form.Group>
+
+                  <div className="text-center text-md-center mb-4 mt-md-0">
+                    <h3 className="mb-0">Vehicle details</h3>
+                  </div>
+
                   <Form.Group id="numberPlate" className="mb-4">
                     <Form.Label>Number plate</Form.Label>
                     <InputGroup>
@@ -111,18 +190,42 @@ export default () => {
                     </Form.Select>
                   </Form.Group>
 
-                  <Form.Group className="mb-4">
-                    <Form.Label>Service desired</Form.Label>
-                    <Form.Select id="service" defaultValue="carpark-booking" onChange={(e)=> {setService(e.target.value)}}>
-                      <option value="carpark-booking">CAR PARK</option>
-                      <option value="carwash-booking">CAR WASH</option>
-                      <option value="membership-booking">MEMBERSHIP</option>
-                    </Form.Select>
-                  </Form.Group>
+                  <div className="text-center text-md-center mb-4 mt-md-0">
+                    <h3 className="mb-0">Booking details</h3>
+                    <h5 className="mb-0">Car wash</h5>
+                  </div>
 
+                  <Form.Group id="checkIn" className="mt-4">
+                <Form.Label>Check in</Form.Label>
+                <Datetime
+                    timeFormat={false}
+                    onChange={setDate}
+                    renderInput={(props, openCalendar) => (
+                    <InputGroup>
+                        <InputGroup.Text><FontAwesomeIcon icon={faCalendarAlt} /></InputGroup.Text>
+                        <Form.Control
+                        required
+                        type="text"
+                        value={date ? moment(date).format("YYYY/MM/DD") : ""}
+                        placeholder="dd/mm/yyyy"
+                        onFocus={openCalendar}
+                        onChange={(e)=> {setDate(e.target.value)}}  />
+                    </InputGroup>
+                    )} />
+                </Form.Group>
 
-                  <Button variant="primary" type="submit" onClick={postVehicle} className="w-100">
-                    Add Vehicle Details
+                <Form.Group className="mb-4 mt-4">
+                  <Form.Label>Select a product</Form.Label>
+                  <Form.Select id="reservation" defaultValue="0" onChange={(e)=> {setWashType(e.target.value)}}>
+                    <option value="NONE">Products</option>
+                    <option value="Silver">Silver Wash (€ 20.00)</option>
+                    <option value="Golden">Golden Wash (€ 40.00)</option>
+                    <option value="Diamond">Diamond Wash (€ 55.00)</option>
+                  </Form.Select>
+                </Form.Group>
+
+                  <Button variant="primary" type="submit" className="w-100" onClick={registerUser}>
+                    Book!
                   </Button>
 
                 </Form>

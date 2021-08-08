@@ -81,25 +81,23 @@ export default (props = {}) => {
 
 
               <CollapsableNavItem eventKey="carpark/" title="Car park" icon={faCarSide}>
-                <NavItem title="Reservations" link={Routes.Transactions.path} />
+                <NavItem title="Reservations" link={Routes.ScreenCarpark.path} />
                 <NavItem title="Staffs" link={Routes.BootstrapTables.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="carwash/" title="Carwash" icon={faCloudRain}>
-                <NavItem title="Sevice Status" link={Routes.Settings.path} />
+                <NavItem title="Sevice Status" link={Routes.ScreenCarwash.path} />
                 <NavItem title="Stock" link={Routes.Settings.path} />
                 <NavItem title="Staffs" link={Routes.Settings.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="membership/" title="Membership" icon={faHandshake}>
+              <NavItem title="Membership Status" link={Routes.ScreenMembership.path} />
                 <NavItem title="Customers" link={Routes.Settings.path} />
               </CollapsableNavItem>
 
-
-              <CollapsableNavItem eventKey="users/" title="Users" icon={faUserAlt}>
-                <NavItem title="Make Reservation" link={Routes.MakeReservation.path} />
-                <NavItem title="My Reservations" link={Routes.MyReservations.path} />
-                <NavItem title="My Profile" link={Routes.MyProfile.path} />
+              <CollapsableNavItem eventKey="invoice/" title="Invoice" icon={faHandshake}>
+              <NavItem title="Generate Invoice" link={Routes.ScreenInvoice.path} />
               </CollapsableNavItem>
 
             </Nav>

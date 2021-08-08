@@ -5,13 +5,19 @@ import { Routes } from "../routes";
 // pages
 import IndexWebPage from "./IndexWebPage";
 import DashboardOverview from "./dashboard/DashboardOverview";
-import Transactions from "./Transactions";
+import ScreenCarpark from "./ScreenCarpark";
+import ScreenCarwash from "./ScreenCarpark";
+import ScreenMembership from "./ScreenCarpark";
+import ScreenInvoice from "./ScreenInvoice";
+
 import Settings from "./Settings";
 import BootstrapTables from "./other/BootstrapTables";
 import Signin from "./users/Signin";
 import Register_00 from "./users/Register-00";
+import Register_1 from "./users/Register-1";
 import Register_2 from "./users/Register-2";
 import Register_3 from "./users/Register-3";
+import Register_4 from "./users/Register-4";
 import CarparkBooking from "./products/CarparkBooking";
 import CarwashBooking from "./products/CarwashBooking";
 import MembershipBooking from "./products/MembershipBooking";
@@ -85,8 +91,10 @@ export default () => (
     <RouteWithLoader exact path={Routes.IndexWebPage.path} component={IndexWebPage} />
     <RouteWithLoader exact path={Routes.Signin.path} component={Signin} />
     <RouteWithLoader exact path={Routes.Register_00.path} component={Register_00} />
+    <RouteWithLoader exact path={Routes.Register_1.path} component={Register_1} />
     <RouteWithLoader exact path={Routes.Register_2.path} component={Register_2} />
     <RouteWithLoader exact path={Routes.Register_3.path} component={Register_3} />
+    <RouteWithLoader exact path={Routes.Register_4.path} component={Register_4} />
     <RouteWithLoader exact path={Routes.CarparkBooking.path} component={CarparkBooking} />
     <RouteWithLoader exact path={Routes.CarwashBooking.path} component={CarwashBooking} />
     <RouteWithLoader exact path={Routes.MembershipBooking.path} component={MembershipBooking} />
@@ -98,7 +106,10 @@ export default () => (
     <RouteWithSidebar exact path={Routes.MakeReservation.path} component={MakeReservation} />
     <RouteWithSidebar exact path={Routes.MyReservations.path} component={MyReservations} />
     <RouteWithSidebar exact path={Routes.MyProfile.path} component={MyProfile} />
-    <RouteWithSidebar exact path={Routes.Transactions.path} component={Transactions} />
+    <RouteWithSidebar exact path={Routes.ScreenCarpark.path} component={ScreenCarpark} />
+    <RouteWithSidebar exact path={Routes.ScreenCarwash.path} component={ScreenCarwash} />
+    <RouteWithSidebar exact path={Routes.ScreenMembership.path} component={ScreenMembership} />
+    <RouteWithSidebar exact path={Routes.ScreenInvoice.path} component={ScreenInvoice} />
     <RouteWithSidebar exact path={Routes.Settings.path} component={Settings} />
     <RouteWithSidebar exact path={Routes.BootstrapTables.path} component={BootstrapTables} />
 

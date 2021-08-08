@@ -13,7 +13,7 @@ import axios from 'axios';
 export default () => {
     
   const [fromDate, setDate] = useState('');
-  const [numberDays, setNumberDays] = useState('');
+  const [numberDays, setNumberDays] = useState('1');
   const [type, setType] = useState('');
   const [price, setPrice] = useState('');
 
@@ -48,7 +48,7 @@ export default () => {
         console.log(response.data.error);
       } else {
         alert("Your Reservation has been added successfully!!")
-        //history.push("/dashboard/overview");
+        //
       }
     });
   };
@@ -103,8 +103,8 @@ export default () => {
                 </Form.Group>
 
                 <Form.Group className="mb-4 mt-4">
-                  <Form.Label>Select the numeber of days</Form.Label>
-                  <Form.Select id="numbDays" defaultValue="0" onChange={(e)=> {setNumberDays(e.target.value)}}>
+                  <Form.Label>Select the number of days</Form.Label>
+                  <Form.Select id="numbDays" defaultValue="1" onChange={(e)=> {setNumberDays(e.target.value)}}>
                     <option value="1">1</option>
                     <option value="2">2</option>
                     <option value="3">3</option>
