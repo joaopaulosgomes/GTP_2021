@@ -1,110 +1,19 @@
 
 import React, {useEffect, useState} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faAngleDown, faAngleUp, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
+import { faTrashAlt } from '@fortawesome/free-solid-svg-icons';
 import { Card, Table} from '@themesberg/react-bootstrap';
-import axios from 'axios';
-
-import transactions from "../data/transactions";
-
-
-const ValueChange = ({ value, suffix }) => {
-  const valueIcon = value < 0 ? faAngleDown : faAngleUp;
-  const valueTxtColor = value < 0 ? "text-danger" : "text-success";
-
-  return (
-    value ? <span className={valueTxtColor}>
-      <FontAwesomeIcon icon={valueIcon} />
-      <span className="fw-bold ms-1">
-        {Math.abs(value)}{suffix}
-      </span>
-    </span> : "--"
-  );
-};
-
-
-
-export const UsersReservationTable = () => {
-  const totalTransactions = transactions.length;
-
-  const TableRow = (props) => {
-    const { invoiceNumber, subscription, price, issueDate, dueDate, status } = props;
-    const statusVariant = status === "Paid" ? "success"
-      : status === "Due" ? "warning"
-        : status === "Canceled" ? "danger" : "primary";
-
-    return (
-      <tr>
-        <td>
-          <span className="fw-normal">
-          {invoiceNumber}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            {subscription}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            {dueDate}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-          {invoiceNumber}
-          </span>
-        </td>
-        <td>
-          <span className="fw-normal">
-            ${parseFloat(price).toFixed(2)}
-          </span>
-        </td>
-      </tr>
-    );
-  };
-
-  return (
-    <Card border="light" className="table-wrapper table-responsive shadow-sm">
-      <Card.Body className="pt-0">
-        <Table hover className="user-table align-items-center">
-          <thead>
-            <tr>
-              <th className="border-bottom">#id</th>
-              <th className="border-bottom">Type</th>
-              <th className="border-bottom">From Date</th>
-              <th className="border-bottom">Number of Days</th>
-              <th className="border-bottom">Price</th>
-            </tr>
-          </thead>
-          <tbody>
-            {transactions.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
-          </tbody>
-        </Table>
-      </Card.Body>
-    </Card>
-  );
-};
-
-
-
-
-
-
-
-
 
 
 export const AdmReservationTable = () => {
 
   const [record,setRecord] = useState([]);
-
+  
   useEffect(() => {
     getReservation();
   });
 
-  const getReservation = async () =>  
-    {
+  const getReservation = async () =>  {
       var response = fetch('http://localhost:7000/api/carpark/reservation')
          .then(function(response){
             return response.json();
@@ -112,15 +21,10 @@ export const AdmReservationTable = () => {
          .then(function(myJson) {
             setRecord(myJson);
           });
-    }
-
-  const totalData = record.length;
+  }
 
   const TableRow = (props) => {
     const { id, type, price, created_at, numb_days, from_date, status } = props;
-    const statusVariant = status === "Paid" ? "success"
-      : status === "Due" ? "warning"
-        : status === "Canceled" ? "danger" : "primary";
 
     return (
       <tr>
@@ -146,11 +50,11 @@ export const AdmReservationTable = () => {
         </td>
         <td>
           <span className="fw-normal">
-            ${parseFloat(price).toFixed(2)}
+            €{parseFloat(price).toFixed(2)}
           </span>
         </td>
         <td>
-          <span className={`fw-normal text-${statusVariant}`}>
+          <span className={"fw-normal"}>
             {status}
           </span>
         </td>
@@ -182,6 +86,179 @@ export const AdmReservationTable = () => {
             </tr>
           </thead>
           <tbody>
+            {record.map(t => <TableRow key={t.id} {...t} />)}
+          </tbody>
+        </Table>
+      </Card.Body>
+    </Card>
+  );
+};
+
+export const AdmCarwashTable = () => {
+
+  const [record,setRecord] = useState([]);
+  
+  useEffect(() => {
+    getReservation();
+  });
+
+  const getReservation = async () => {
+      var response = fetch('http://localhost:7000/api/carpark/carwash')
+         .then(function(response){
+            return response.json();
+          })
+         .then(function(myJson) {
+            setRecord(myJson);
+          });
+  }
+
+  const TableRow = (props) => {
+    
+    const { id, type,  date, status, price, user_id} = props;
+    return (
+      <tr>
+        <td>
+          <span className="fw-normal">
+            {id}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {type}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {date}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {status}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {user_id}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            €{parseFloat(price).toFixed(2)}
+          </span>
+        </td>
+        <td>
+          <Card.Link className="fw-normal">
+            <FontAwesomeIcon icon={faTrashAlt} className="text-danger" />
+            <h7> Cancel</h7>
+          </Card.Link>
+        </td>
+        
+      </tr>
+    );
+  };
+
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+          <tr>
+              <th className="border-bottom">#id</th>
+              <th className="border-bottom">Type</th>
+              <th className="border-bottom">Date</th>
+              <th className="border-bottom">Status</th>
+              <th className="border-bottom">User</th>
+              <th className="border-bottom">Price</th>
+              <th className="border-bottom">Action</th>
+              
+            </tr>
+          </thead>
+          <tbody>
+            {record.map(t => <TableRow key={t.id} {...t} />)}
+          </tbody>
+        </Table>
+      </Card.Body>
+    </Card>
+  );
+};
+
+
+export const AdmMembershipTable = () => {
+
+  const [record,setRecord] = useState([]);
+  
+  useEffect(() => {
+    getReservation();
+  });
+
+  const getReservation = async () => {
+      var response = fetch('http://localhost:7000/api/carpark/membership')
+         .then(function(response){
+            return response.json();
+          })
+         .then(function(myJson) {
+            setRecord(myJson);
+          });
+  }
+
+  const TableRow = (props) => {
+    const { id, period, from_date, status, price } = props;
+
+    return (
+      <tr>
+        <td>
+          <span className="fw-normal">
+            {id}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {period}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {from_date}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {status}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            €{parseFloat(price).toFixed(2)}
+          </span>
+        </td>
+        <td>
+          <Card.Link className="fw-normal">
+            <FontAwesomeIcon icon={faTrashAlt} className="text-danger" />
+            <h7> Cancel</h7>
+          </Card.Link>
+        </td>
+        
+      </tr>
+    );
+  };
+
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+          <tr>
+              <th className="border-bottom">#id</th>
+              <th className="border-bottom">Period</th>
+              <th className="border-bottom">From Date</th>
+              <th className="border-bottom">Status</th>
+              <th className="border-bottom">Price</th>
+              <th className="border-bottom">Action</th>
+              
+            </tr>
+          </thead>
+          <tbody>
             {record.map(t => <TableRow key={`record-${t.id}`} {...t} />)}
           </tbody>
         </Table>
@@ -190,3 +267,85 @@ export const AdmReservationTable = () => {
   );
 };
 
+
+
+
+
+export const AdmUsersTable = () => {
+
+  const [record,setRecord] = useState([]);
+  
+  useEffect(() => {
+    getReservation();
+  });
+
+  const getReservation = async () => {
+      var response = fetch('http://localhost:7000/api/carpark/users')
+         .then(function(response){
+            return response.json();
+          })
+         .then(function(myJson) {
+            setRecord(myJson);
+          });
+  }
+
+  const TableRow = (props) => {
+    const { id, first_name, last_name, phone_number, email, create_at } = props;
+    return (
+      <tr>
+        <td>
+          <span className="fw-normal">
+            {id}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {first_name}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {last_name}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {phone_number}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {email}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            {create_at}
+          </span>
+        </td>
+      </tr>
+    );
+  };
+
+  return (
+    <Card border="light" className="table-wrapper table-responsive shadow-sm">
+      <Card.Body className="pt-0">
+        <Table hover className="user-table align-items-center">
+          <thead>
+          <tr>
+              <th className="border-bottom">#id</th>
+              <th className="border-bottom">First Name</th>
+              <th className="border-bottom">Last Name</th>
+              <th className="border-bottom">Phone</th>
+              <th className="border-bottom">E-mail</th>
+              <th className="border-bottom">Created at</th>
+            </tr>
+          </thead>
+          <tbody>
+            {record.map(t => <TableRow key={t.id}{...t} />)}
+          </tbody>
+        </Table>
+      </Card.Body>
+    </Card>
+  );
+};

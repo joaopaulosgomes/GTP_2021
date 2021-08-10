@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Form, Breadcrumb, InputGroup } from '@themesberg/react-bootstrap';
 
-import { AdmReservationTable } from "../components/CustomTables";
+import { AdmUsersTable } from "../components/CustomTables";
 
 export default () => {
   return (
@@ -12,11 +12,11 @@ export default () => {
         <div className="d-block mb-4 mb-md-0">
           <Breadcrumb className="d-none d-md-inline-block" listProps={{ className: "breadcrumb-dark breadcrumb-transparent" }}>
             <Breadcrumb.Item><FontAwesomeIcon icon={faHome} /></Breadcrumb.Item>
-            <Breadcrumb.Item>Car park</Breadcrumb.Item>
+            <Breadcrumb.Item>Business</Breadcrumb.Item>
             <Breadcrumb.Item active>Invoice</Breadcrumb.Item>
           </Breadcrumb>
           <h4>Invoice</h4>
-          <p className="mb-0">Enter the information you looking for</p>
+          <p className="mb-0">Enter the ID of the user</p>
         </div>
       </div>
 
@@ -27,13 +27,13 @@ export default () => {
               <InputGroup.Text>
                 <FontAwesomeIcon icon={faSearch} />
               </InputGroup.Text>
-              <Form.Control type="text" placeholder="Search" />
+              <Form.Control type="text" placeholder="Search for user ID" />
             </InputGroup>
           </Col>
         </Row>
       </div>
-
-      
+      <p className="mb-0">Here are all users registered</p>
+      <AdmUsersTable/>
 
     </>
   );

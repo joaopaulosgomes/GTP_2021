@@ -5,8 +5,30 @@ import { Col, Row, Card, Image, Button, Container, Navbar, Nav } from '@themesbe
 import { HashLink } from 'react-router-hash-link';
 import { Link } from 'react-router-dom';
 import { Routes } from "../routes";
-import pages from "../data/pages";
+import image1 from "../assets/img/pages/1.jpg";
+import image2 from "../assets/img/pages/2.jpg";
+import image3 from "../assets/img/pages/3.jpg";
+import image4 from "../assets/img/pages/4.jpg";
 
+
+const pages = [
+    {
+        "id": 1,
+        "image": image1
+    },
+    {
+        "id": 2,
+        "image": image2
+    },
+    {
+        "id": 3,
+        "image": image3
+    },
+    {
+        "id": 4,
+        "image": image4
+    }
+];
 
 export default () => {
 
@@ -52,7 +74,7 @@ export default () => {
 
             <Button as={HashLink} to={Routes.Register_1.path} variant="outline-white" className="ms-3"><FontAwesomeIcon className="me-1" /> Make Reservation</Button>
             <Button as={HashLink} to={Routes.Signin.path} variant="outline-white" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Login</Button>
-            <Button as={HashLink} to={Routes.DashboardOverview.path} variant="outline-dark" className="ms-3"><FontAwesomeIcon className="me-1" /> ByPass</Button>
+            <Button as={HashLink} to={Routes.ScreenCarpark.path} variant="outline-dark" className="ms-3"><FontAwesomeIcon className="me-1" /> ByPass</Button>
           </div>
         </Container>
       </Navbar>

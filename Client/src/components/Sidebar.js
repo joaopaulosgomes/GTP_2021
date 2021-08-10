@@ -4,8 +4,8 @@ import SimpleBar from 'simplebar-react';
 import { useLocation } from "react-router-dom";
 import { CSSTransition } from 'react-transition-group';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCarAlt, faCarSide, faChartPie, faCloudRain, faFileAlt, faHandshake, faUserAlt } from "@fortawesome/free-solid-svg-icons";
-import { Nav, Badge, Image, Button, Dropdown, Accordion, Navbar } from '@themesberg/react-bootstrap';
+import { faCarAlt, faCarSide,  faCloudRain,  faHandshake } from "@fortawesome/free-solid-svg-icons";
+import { Nav, Badge, Image, Dropdown, Accordion } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Routes } from "../routes";
@@ -77,23 +77,16 @@ export default (props = {}) => {
 
               <Dropdown.Divider className="my-3 border-indigo" />
 
-              <NavItem title="Overview" link={Routes.DashboardOverview.path} icon={faChartPie} />
-
-
               <CollapsableNavItem eventKey="carpark/" title="Car park" icon={faCarSide}>
                 <NavItem title="Reservations" link={Routes.ScreenCarpark.path} />
-                <NavItem title="Staffs" link={Routes.BootstrapTables.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="carwash/" title="Carwash" icon={faCloudRain}>
                 <NavItem title="Sevice Status" link={Routes.ScreenCarwash.path} />
-                <NavItem title="Stock" link={Routes.Settings.path} />
-                <NavItem title="Staffs" link={Routes.Settings.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="membership/" title="Membership" icon={faHandshake}>
               <NavItem title="Membership Status" link={Routes.ScreenMembership.path} />
-                <NavItem title="Customers" link={Routes.Settings.path} />
               </CollapsableNavItem>
 
               <CollapsableNavItem eventKey="invoice/" title="Invoice" icon={faHandshake}>

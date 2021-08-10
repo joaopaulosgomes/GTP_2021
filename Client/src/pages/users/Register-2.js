@@ -201,7 +201,7 @@ export default () => {
                 <Datetime
                     timeFormat={false}
                     onChange={setDate}
-                    renderInput={(openCalendar) => (
+                    renderInput={(props, openCalendar) => (
                     <InputGroup>
                         <InputGroup.Text><FontAwesomeIcon icon={faCalendarAlt} /></InputGroup.Text>
                         <Form.Control

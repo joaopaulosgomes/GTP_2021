@@ -25,7 +25,7 @@ export default () => {
       } else {
         alert("Youre logged in!");
         sessionStorage.setItem("accessToken", response.data);
-        history.push("/dashboard/overview");
+        history.push("/screen-carpark");
       }
     });
   };

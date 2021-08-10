@@ -46,7 +46,7 @@ exports.createNewReservation = (req, res) =>{
 // get reservation by ID  for Update 
 exports.getReservationByID = (req, res)=>{
     //console.log('get reservation by id');
-    reservationModel.getreservationByID(req.params.id, (err, reservation)=>{
+    reservationModel.getReservationByID(req.params.id, (err, reservation)=>{
         if(err)
         res.send(err);
         console.log('single reservation data',reservation);
