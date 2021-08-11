@@ -20,7 +20,7 @@ export default () => {
   const login = () => {
     const data = { username: username, password: password };
     axios.post("http://localhost:7000/login", data).then((response) => {
-      if (response.data.error) {
+      if (response.error) {
         console.log(response.data.error);
       } else {
         alert("Youre logged in!");

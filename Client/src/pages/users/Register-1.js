@@ -1,8 +1,8 @@
 
-import React, {useState} from "react";
+import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
+import { faAngleLeft } from "@fortawesome/free-solid-svg-icons";
+import { Col, Row, Form, Card, Button, Container} from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Routes } from "../../routes";
 

@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faUnlockAlt, faUser } from "@fortawesome/free-solid-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
+import { Col, Row, Form, Card, Button, Container, InputGroup } from '@themesberg/react-bootstrap';
 import { Link, useHistory } from 'react-router-dom';
 import { Routes } from "../../routes";
 import axios from 'axios';
@@ -20,7 +20,9 @@ export default () => {
     axios.post("http://localhost:7000/register", data).then((response) => {
       if (response.data.error) {
         console.log(response.data.error);
+        alert(response.data.error);
       } else {
+        alert("User was registered successfully!");
         history.push("/sign-up/2");
       }
     });

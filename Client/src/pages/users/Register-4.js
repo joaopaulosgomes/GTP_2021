@@ -42,10 +42,10 @@ export default () => {
           setPrice("780.00");
         }else{
           if(period==="semiannually"){
-            setPrice("1500.00");
+            setPrice("800.00");
           }
           else{
-            setPrice("2800.00");
+            setPrice("999.00");
           }
         }
       }
@@ -230,8 +230,8 @@ export default () => {
                     <option value="weekly">Weekly (€ 80.00)</option>
                     <option value="monthly">Monthly (€ 275.00)</option>
                     <option value="quartely">Quartely (€ 780.00)</option>
-                    <option value="semiannually">Semiannually (€ 1500.00)</option>
-                    <option value="annually">Anually (€ 2800.00)</option>
+                    <option value="semiannually">Semiannually (€ 800.00)</option>
+                    <option value="annually">Anually (€ 999.00)</option>
                   </Form.Select>
                 </Form.Group>
 

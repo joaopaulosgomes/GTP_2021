@@ -14,17 +14,17 @@ export const AdmReservationTable = () => {
   });
 
   const getReservation = async () =>  {
-      var response = fetch('http://localhost:7000/api/carpark/reservation')
-         .then(function(response){
-            return response.json();
-          })
-         .then(function(myJson) {
-            setRecord(myJson);
-          });
+    fetch('http://localhost:7000/api/carpark/reservation')
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(myJson) {
+        setRecord(myJson);
+      });
   }
 
   const TableRow = (props) => {
-    const { id, type, price, created_at, numb_days, from_date, status } = props;
+    const { id, type, price, numb_days, from_date, status } = props;
 
     return (
       <tr>
@@ -103,13 +103,13 @@ export const AdmCarwashTable = () => {
   });
 
   const getReservation = async () => {
-      var response = fetch('http://localhost:7000/api/carpark/carwash')
-         .then(function(response){
-            return response.json();
-          })
-         .then(function(myJson) {
-            setRecord(myJson);
-          });
+    fetch('http://localhost:7000/api/carpark/carwash')
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(myJson) {
+        setRecord(myJson);
+      });
   }
 
   const TableRow = (props) => {
@@ -193,13 +193,13 @@ export const AdmMembershipTable = () => {
   });
 
   const getReservation = async () => {
-      var response = fetch('http://localhost:7000/api/carpark/membership')
-         .then(function(response){
-            return response.json();
-          })
-         .then(function(myJson) {
-            setRecord(myJson);
-          });
+    fetch('http://localhost:7000/api/carpark/membership')
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(myJson) {
+        setRecord(myJson);
+      });
   }
 
   const TableRow = (props) => {
@@ -280,13 +280,13 @@ export const AdmUsersTable = () => {
   });
 
   const getReservation = async () => {
-      var response = fetch('http://localhost:7000/api/carpark/users')
-         .then(function(response){
-            return response.json();
-          })
-         .then(function(myJson) {
-            setRecord(myJson);
-          });
+    fetch('http://localhost:7000/api/carpark/users')
+      .then(function(response){
+        return response.json();
+      })
+      .then(function(myJson) {
+        setRecord(myJson);
+      });
   }
 
   const TableRow = (props) => {

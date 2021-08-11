@@ -18,7 +18,7 @@ export default (props = {}) => {
   const [show, setShow] = useState(false);
   const showClass = show ? "show" : "";
 
-  const onCollapse = () => setShow(!show);
+  //const onCollapse = () => setShow(!show);
 
   const CollapsableNavItem = (props) => {
     const { eventKey, title, icon, children = null } = props;
