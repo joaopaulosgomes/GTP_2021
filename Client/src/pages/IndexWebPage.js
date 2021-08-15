@@ -74,7 +74,7 @@ export default () => {
 
             <Button as={HashLink} to={Routes.Register_1.path} variant="outline-white" className="ms-3"><FontAwesomeIcon className="me-1" /> Make Reservation</Button>
             <Button as={HashLink} to={Routes.Signin.path} variant="outline-white" className="ms-3"><FontAwesomeIcon icon={faSignInAlt} className="me-1" /> Login</Button>
-            <Button as={HashLink} to={Routes.ScreenCarpark.path} variant="outline-dark" className="ms-3"><FontAwesomeIcon className="me-1" /> ByPass</Button>
+            {/* <Button as={HashLink} to={Routes.ScreenCarpark.path} variant="outline-dark" className="ms-3"><FontAwesomeIcon className="me-1" /> ByPass</Button> */}
           </div>
         </Container>
       </Navbar>

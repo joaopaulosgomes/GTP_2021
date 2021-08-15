@@ -6,7 +6,8 @@ import { faUserCircle } from "@fortawesome/free-regular-svg-icons";
 import { Nav, Image, Navbar, Dropdown, Container} from '@themesberg/react-bootstrap';
 
 import Profile3 from "../assets/img/team/profile-picture-0.jpg";
-
+import { HashLink } from 'react-router-hash-link';
+import { Routes } from "../routes";
 
 export default (props) => {
   
@@ -32,7 +33,7 @@ export default (props) => {
                   <FontAwesomeIcon icon={faUserCircle} className="me-2" /> My Profile
                 </Dropdown.Item>
 
-                <Dropdown.Item className="fw-bold">
+                <Dropdown.Item className="fw-bold" as={HashLink} to={Routes.IndexWebPage.path}>
                   <FontAwesomeIcon icon={faSignOutAlt} className="text-danger me-2" /> Logout
                 </Dropdown.Item>
               </Dropdown.Menu>

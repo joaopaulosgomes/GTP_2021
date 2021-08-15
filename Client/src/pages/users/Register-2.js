@@ -44,7 +44,7 @@ export default () => {
     }
   }
 
-  //This function posts a user register
+  //This function posts a User register
   const registerUser = () => {
     const data = { first_name: fname, last_name: lname, email: email, phone_number: phone };
     axios.post("http://localhost:7000/api/carpark/users", data).then((response) => {
@@ -58,7 +58,8 @@ export default () => {
 
   //This function posts a Vehicle register
   const postVehicle = (userID) => {
-    const data = { make: make, model: model, type: type, number_plate:numberPlate, colour: colour, user_id: userID};
+    const data = { make: make, model: model, type: type, number_plate:numberPlate,
+      colour: colour, user_id: userID};
     axios.post("http://localhost:7000/api/carpark/vehicle", data).then((response) => {
       if (response.data.error) {
         console.log(response.data.error);
@@ -70,7 +71,8 @@ export default () => {
 
   //This function posts a car park reservation
   const postCarpark = (vehicleID, userID) => {
-  const data = { from_date: fromDate, numb_days: numberDays, type: reservationType, price: price, user_id: userID, vehicle_id: vehicleID};
+  const data = { from_date: fromDate, numb_days: numberDays, type: reservationType,
+    price: price, user_id: userID, vehicle_id: vehicleID};
   axios.post("http://localhost:7000/api/carpark/reservation", data).then((response) => {
     if (response.data.error) {
       console.log(response.data.error);
